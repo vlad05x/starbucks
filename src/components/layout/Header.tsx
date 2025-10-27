@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
   return (
     <Box component="header" className="bg-transparent">
       <Container maxWidth={false} sx={{ maxWidth: 1290, mx: "auto", px: 2 }}>
-        <Box className="flex items-center justify-between py-12">
+        <Box className="flex items-center justify-between pt-12 pb-20">
           <Box
             className="flex items-center"
             style={{ gap: isMobile ? 0 : 100 }}
@@ -43,12 +43,13 @@ export const Header: React.FC = () => {
             </Typography>
 
             {!isMobile && (
-              <Box className="flex gap-20 text-[#d9d9d9]">
+              <Box className="flex gap-20 text-[#d9d9d9] ">
                 {links.map((link) => (
                   <a
                     key={link}
                     href="#"
                     className="hover:opacity-70 transition"
+                    style={{ fontSize: 19 }}
                   >
                     {link}
                   </a>

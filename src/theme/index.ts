@@ -1,18 +1,5 @@
 import { createTheme } from "@mui/material/styles";
 
-declare module "@mui/material/styles" {
-  interface Palette {
-    gradients: {
-      primary: string;
-    };
-  }
-  interface PaletteOptions {
-    gradients?: {
-      primary?: string;
-    };
-  }
-}
-
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -40,19 +27,41 @@ const theme = createTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700,
-    h1: { fontSize: "2rem", fontWeight: 700 },
+    h1Gradient: {
+      fontWeight: 800,
+      fontSize: "5rem",
+      lineHeight: "109%",
+      letterSpacing: "-0.03em",
+      background: "linear-gradient(223deg, #237249 0%, #35c66b 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+    },
+    h1: {
+      fontWeight: 800,
+      fontSize: "5rem",
+      color: "#fff",
+      lineHeight: "109%",
+      letterSpacing: "-0.03em",
+    },
     body1: {
-      fontSize: "19px",
+      fontSize: "1.25rem",
       fontWeight: 400,
       color: "#d9d9d9",
-      textShadow: "0 4px 4px rgba(0,0,0,0.25)",
+      lineHeight: "163%",
+      letterSpacing: "-0.02em",
     },
     button: { textTransform: "none", fontWeight: 500 },
   },
   components: {
     MuiButton: {
       styleOverrides: {
-        root: { borderRadius: 83 },
+        root: {
+          borderRadius: 83,
+          fontSize: "1.5rem",
+          fontWeight: 639,
+          lineHeight: "146%",
+          letterSpacing: "-0.02em",
+        },
       },
     },
   },
