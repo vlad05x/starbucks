@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import theme from "@/theme";
 import { Box, Typography, Container } from "@mui/material";
 import CustomButton from "@components/ui/Button";
@@ -6,73 +7,177 @@ import CupCoffee from "@/assets/images/CupCoffeMain.svg";
 import { GlowCircle } from "@components/ui/GlowCircle";
 import { StarBadge } from "@components/ui/StarBadge";
 
-export default function HeroSection() {
+const HeroSection: React.FC = memo(() => {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-10 md:py-20">
-      <Container maxWidth={false} sx={{ maxWidth: 1290, mx: "auto", px: 2 }}>
-        <Box className="flex flex-col md:flex-row items-center gap-[155px]">
-          <Box className="md:w-1/2 flex justify-center order-1 md:order-2 relative">
-            <GlowCircle
-              size={400}
-              blur={150}
-              gradient="rgba(255,255,255,0.04)"
-              className="-top-20 -left-16 z-0"
-            />
-            <GlowCircle
-              size={350}
-              blur={175}
-              gradient="linear-gradient(245deg, rgba(35,114,73,0.55) 0%, rgba(53,198,107,0.73) 51.85%)"
-              className="-bottom-10 -right-12 z-0"
-            />
+    <section 
+      className="flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-20 py-8 sm:py-10 md:py-16 lg:py-20 min-h-[90vh] md:min-h-auto"
+      style={{ overflowX: "hidden", width: "100%", maxWidth: "100vw" }}
+    >
+      <Container
+        maxWidth={false}
+        sx={{ 
+          maxWidth: 1290, 
+          mx: "auto", 
+          px: { xs: 2, sm: 3 },
+          // overflowX: "hidden",
+          width: "100%",
+        }}
+      >
+        <Box
+          className="flex flex-col md:flex-row items-center w-full"
+          sx={{
+            gap: { xs: 8, sm: 12, md: 16, lg: 20, xl: "155px" },
+          }}
+        >
+          <Box
+            className="md:w-1/2 flex justify-center order-1 md:order-2 relative w-full"
+            sx={{
+              minHeight: { xs: "300px", sm: "400px", md: "auto" },
+            }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: { xs: -40, sm: -60, md: -80 },
+                left: { xs: -40, sm: -60, md: -64 },
+                zIndex: 0,
+              }}
+            >
+              <GlowCircle
+                size={400}
+                blur={120}
+                gradient="rgba(255,255,255,0.04)"
+                className="hidden sm:block"
+              />
+              <GlowCircle
+                size={200}
+                blur={120}
+                gradient="rgba(255,255,255,0.04)"
+                className="block sm:hidden"
+              />
+            </Box>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "none", md: "block" },
+                position: "absolute",
+                bottom: { xs: -20, sm: 280, md: 250 },
+                right: { xs: -32, sm: 200, md: 300 },
+                zIndex: 0,
+              }}
+            >
+              <GlowCircle
+                size={350}
+                blur={140}
+                gradient="linear-gradient(245deg, rgba(35,114,73,0.55) 0%, rgba(53,198,107,0.73) 51.85%)"
+                className="hidden "
+              />
+              <GlowCircle
+                size={200}
+                blur={140}
+                gradient="linear-gradient(245deg, rgba(35,114,73,0.55) 0%, rgba(53,198,107,0.73) 51.85%)"
+                className="block sl:hidden"
+              />
+            </Box>
 
             <Box
               component="img"
               src={CupCoffee}
-              alt="Hero Coffee"
-              className="animate-floating hover:rotate-25 hover:scale-105 transition-transform duration-700 ease-in-out "
+              alt="Starbucks Coffee Cup"
+              loading="eager"
+              className="relative z-10 animate-floating hover:rotate-12 hover:scale-105 transition-transform duration-700 ease-in-out"
               sx={{
-                width: { xs: 255, sm: "100%" },
-                height: { xs: 343, sm: "auto" },
-                maxWidth: { md: 500 },
-                zIndex: 10,
-                position: "relative",
+                width: {
+                  xs: "200px",
+                  sm: "280px",
+                  md: "380px",
+                  lg: "450px",
+                  xl: "500px",
+                },
+                height: "auto",
+                maxWidth: "100%",
+                objectFit: "contain",
               }}
             />
 
             <Box
               sx={{
                 position: "absolute",
-                top: { xs: 0, sm: 60 },
-                right: { xs: 0, sm: 150 },
+                top: { xs: "-10px", sm: "20px", md: "40px", lg: "60px" },
+                right: { 
+                  xs: "clamp(0px, 5vw, 90px)", 
+                  sm: "clamp(0px, 10vw, 230px)", 
+                  md: "100px", 
+                  lg: "150px" 
+                },
                 zIndex: 20,
-                transform: "translate(50%, -50%)",
+                transform: {
+                  xs: "translate(0, 0) rotate(-15deg)",
+                  sm: "translate(50%, -50%) rotate(-15deg)",
+                },
+                maxWidth: { xs: "calc(50vw - 10px)", sm: "none" },
               }}
             >
-              <StarBadge
-                label="45%"
-                size={220}
-                textColor="#fff"
-                fontSize="3.4375rem"
-                className="rotate-[-15deg] hover:rotate-25 transition-transform duration-500"
-              />
+              <Box
+                sx={{
+                  width: { xs: 120, sm: 160, md: 200, lg: 220 },
+                  height: { xs: 120, sm: 160, md: 200, lg: 220 },
+                }}
+                className="[&>div]:w-full [&>div]:h-full"
+              >
+                <StarBadge
+                  label="45%"
+                  size={220}
+                  textColor="#fff"
+                  fontSize={{
+                    xs: "1.5rem",
+                    sm: "2rem",
+                    md: "2.5rem",
+                    lg: "3rem",
+                    xl: "3.4375rem",
+                  }}
+                  className="rotate-[-15deg] hover:rotate-25 transition-transform duration-500"
+                />
+              </Box>
             </Box>
           </Box>
 
-          <Box className="md:w-1/2 flex flex-col gap-[54px] order-2 md:order-1">
-            <Box className="relative">
-              <GlowCircle
-                size={180}
-                blur={100}
-                gradient="linear-gradient(245deg, rgba(35,114,73,0.35) 0%, rgba(53,198,107,0.5) 51.85%)"
-                className="top-5 z-0"
-              />
+          <Box
+            className="md:w-1/2 flex flex-col order-2 md:order-1 w-full"
+            sx={{
+              gap: { xs: 6, sm: 8, md: 10, lg: "54px" },
+              alignItems: { xs: "flex-start", md: "flex-start" },
+              textAlign: { xs: "left", md: "left" },
+            }}
+          >
+            <Box className="relative w-full">
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: { xs: "-20px", sm: 0 },
+                  zIndex: 0,
+                }}
+              >
+                <GlowCircle
+                  size={180}
+                  blur={80}
+                  gradient="linear-gradient(245deg, rgba(35,114,73,0.35) 0%, rgba(53,198,107,0.5) 51.85%)"
+                  className="hidden sm:block"
+                />
+                <GlowCircle
+                  size={100}
+                  blur={60}
+                  gradient="linear-gradient(245deg, rgba(35,114,73,0.35) 0%, rgba(53,198,107,0.5) 51.85%)"
+                  className="block sm:hidden"
+                />
+              </Box>
 
               <Typography
                 variant="h1"
                 sx={{
-                  width: { xs: "100%", sm: 543 },
+                  width: { xs: "100%", sm: "100%", md: 543 },
                   lineHeight: 1.2,
-                  fontSize: { xs: "2.5rem", sm: "3.5rem", md: "5rem" },
+                  fontSize: { xs: "2rem", sm: "3rem", md: "4rem", lg: "5rem" },
                   position: "relative",
                   zIndex: 10,
                 }}
@@ -84,9 +189,13 @@ export default function HeroSection() {
                   component="span"
                   sx={{
                     ...theme.typography.h1Gradient,
-                    width: { xs: "100%", sm: 543 },
+                    fontSize: {
+                      xs: "2rem",
+                      sm: "3rem",
+                      md: "4rem",
+                      lg: "5rem",
+                    },
                     lineHeight: 1.2,
-                    fontSize: { xs: "2.5rem", sm: "3.5rem", md: "5rem" },
                   }}
                 >
                   StarBucks
@@ -97,20 +206,27 @@ export default function HeroSection() {
             <Typography
               variant="body1"
               sx={{
-                fontSize: { xs: "1rem", sm: "1.125rem" },
+                fontSize: { xs: "0.9375rem", sm: "1rem", md: "1.125rem" },
                 lineHeight: 1.6,
+                maxWidth: { xs: "100%", md: "90%" },
               }}
             >
               Have time to buy the most harmonious drinks in the new Starbucks
               coffee and don't forget about the discount!
             </Typography>
 
-            <Box className="flex flex-col sm:flex-row gap-4">
+            <Box
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full"
+              sx={{
+                width: { xs: "100%", sm: "auto" },
+              }}
+            >
               <CustomButton
                 variantType="gradient"
                 sx={{
-                  width: { xs: "100%", sm: 333 },
-                  height: { xs: 60, sm: 74 },
+                  width: { xs: "100%", sm: 280, md: 333 },
+                  height: { xs: 56, sm: 64, md: 74 },
+                  fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
                 }}
               >
                 Select a coffee
@@ -119,26 +235,48 @@ export default function HeroSection() {
                 <CustomButton
                   variantType="dark"
                   sx={{
-                    width: { xs: "100%", sm: 167 },
-                    height: { xs: 60, sm: 74 },
+                    width: { xs: "100%", sm: 140, md: 167 },
+                    height: { xs: 56, sm: 64, md: 74 },
+                    fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
                     zIndex: 10,
+                    position: "relative",
                   }}
                 >
                   More
                 </CustomButton>
 
-                <GlowCircle
-                  size={300}
-                  blur={156}
-                  className="-top-25 -left-20 z-0"
-                />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: { xs: -80, sm: -80, md: -80 },
+                    left: { xs: -64, sm: -64, md: -64 },
+                    zIndex: 0,
+                  }}
+                >
+                  <GlowCircle
+                    size={300}
+                    blur={130}
+                    className="hidden md:block"
+                  />
+                  <GlowCircle
+                    size={200}
+                    blur={100}
+                    className="block md:hidden"
+                  />
+                </Box>
               </Box>
             </Box>
 
-            <StatsBlock />
+            <Box sx={{ width: "100%", mt: { xs: 2, md: 0 } }}>
+              <StatsBlock />
+            </Box>
           </Box>
         </Box>
       </Container>
     </section>
   );
-}
+});
+
+HeroSection.displayName = "HeroSection";
+
+export default HeroSection;

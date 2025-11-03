@@ -16,4 +16,22 @@ export default defineConfig({
       "@theme": path.resolve(__dirname, "./src/theme"),
     },
   },
+  build: {
+    target: "es2015",
+    cssCodeSplit: true,
+    sourcemap: false,
+    minify: "esbuild",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          mui: ["@mui/material", "@mui/icons-material"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom", "@mui/material", "@mui/icons-material"],
+  },
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 interface GlowCircleProps {
   size?: number;
@@ -7,7 +7,7 @@ interface GlowCircleProps {
   blur?: number;
 }
 
-export const GlowCircle: React.FC<GlowCircleProps> = ({
+export const GlowCircle: React.FC<GlowCircleProps> = memo(({
   size = 200,
   className = "",
   gradient = "rgba(255,255,255,0.04)",
@@ -20,6 +20,11 @@ export const GlowCircle: React.FC<GlowCircleProps> = ({
       height: `${size}px`,
       background: gradient,
       filter: `blur(${blur}px)`,
+      pointerEvents: "none",
+      willChange: "transform",
     }}
+    aria-hidden="true"
   />
-);
+));
+
+GlowCircle.displayName = "GlowCircle";

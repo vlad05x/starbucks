@@ -1,13 +1,20 @@
+import { memo } from "react";
 import { Header } from "./components/layout/Header";
 import HeroSection from "./components/section/HeroSection";
 import { BenefitsSection } from "./components/section/BenefitsSection";
 
-export default function App() {
+const App = memo(() => {
   return (
     <>
       <Header />
-      <HeroSection />
-      <BenefitsSection />
+      <main>
+        <HeroSection />
+        <BenefitsSection />
+      </main>
     </>
   );
-}
+});
+
+App.displayName = "App";
+
+export default App;
