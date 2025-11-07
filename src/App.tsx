@@ -3,7 +3,7 @@ import { Header } from "./components/layout/Header";
 import HeroSection from "./components/section/HeroSection";
 import { BenefitsSection } from "./components/section/BenefitsSection";
 import PromoSection from "./components/section/PromoSection";
-
+import ProductsSection from "./components/section/ProductsSection";
 
 const App = memo(() => {
   return (
@@ -13,6 +13,7 @@ const App = memo(() => {
         <HeroSection />
         <BenefitsSection />
         <PromoSection />
+        <ProductsSection />
       </main>
     </>
   );
