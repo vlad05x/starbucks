@@ -5,6 +5,7 @@ import { BenefitsSection } from "./components/section/BenefitsSection";
 import PromoSection from "./components/section/PromoSection";
 import ProductsSection from "./components/section/ProductsSection";
 import EventsSection from "./components/section/EventsSection";
+import Contact from "./components/section/Contact";
 
 const App = memo(() => {
   return (
@@ -16,6 +17,7 @@ const App = memo(() => {
         <PromoSection />
         <ProductsSection />
         <EventsSection />
+        <Contact />
       </main>
     </>
   );
