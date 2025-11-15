@@ -6,6 +6,7 @@ import PromoSection from "./components/section/PromoSection";
 import ProductsSection from "./components/section/ProductsSection";
 import EventsSection from "./components/section/EventsSection";
 import Contact from "./components/section/Contact";
+import { Footer } from "./components/layout/Footer";
 
 const App = memo(() => {
   return (
@@ -19,6 +20,7 @@ const App = memo(() => {
         <EventsSection />
         <Contact />
       </main>
+      <Footer />
     </>
   );
 });
