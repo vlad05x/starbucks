@@ -2,6 +2,7 @@ import React, { memo, useRef } from "react";
 import { Box, Typography, Container } from "@mui/material";
 import theme from "@/theme";
 import ProductCard from "../ui/ProductCard";
+import { GlowCircle } from "../ui/GlowCircle";
 import { products } from "@/data/products";
 
 const ProductsSection: React.FC = memo(() => {
@@ -12,7 +13,8 @@ const ProductsSection: React.FC = memo(() => {
       const container = scrollContainerRef.current;
       const firstCard = container.querySelector("div") as HTMLElement;
       const cardWidth = firstCard?.clientWidth || 277;
-      const gap = window.innerWidth < 600 ? 16 : window.innerWidth < 960 ? 24 : 54;
+      const gap =
+        window.innerWidth < 600 ? 16 : window.innerWidth < 960 ? 24 : 54;
       const scrollAmount = cardWidth + gap;
       const amount = direction === "right" ? scrollAmount : -scrollAmount;
 
@@ -156,6 +158,21 @@ const ProductsSection: React.FC = memo(() => {
             >
               Products
             </Box>
+            <Box
+              sx={{
+                display: { xs: "none", sm: "none", md: "block" },
+                position: "absolute",
+                top: { xs: -40, sm: -60, md: 50 },
+                left: { xs: -40, sm: -60, md: 80 },
+                zIndex: 0,
+              }}
+            >
+              <GlowCircle
+                size={150}
+                blur={140}
+                gradient="linear-gradient(245deg, rgba(35,114,73,0.55) 0%, rgba(53,198,107,0.73) 51.85%)"
+              />
+            </Box>
           </Typography>
 
           <Typography
@@ -229,13 +246,28 @@ const ProductsSection: React.FC = memo(() => {
                   key={index}
                   sx={{
                     flexShrink: 0,
-                    width: { xs: "calc(100vw - 64px)", sm: "320px", md: "277px" },
-                    minWidth: { xs: "calc(100vw - 64px)", sm: "320px", md: "277px" },
-                    maxWidth: { xs: "calc(100vw - 64px)", sm: "320px", md: "277px" },
+                    width: {
+                      xs: "calc(100vw - 64px)",
+                      sm: "320px",
+                      md: "277px",
+                    },
+                    minWidth: {
+                      xs: "calc(100vw - 64px)",
+                      sm: "320px",
+                      md: "277px",
+                    },
+                    maxWidth: {
+                      xs: "calc(100vw - 64px)",
+                      sm: "320px",
+                      md: "277px",
+                    },
                     scrollSnapAlign: { xs: "start", md: "none" },
                     transition: "transform 0.3s ease, opacity 0.3s ease",
                     "&:hover": {
-                      transform: { xs: "translateY(-4px) scale(1.01)", md: "translateY(-8px) scale(1.02)" },
+                      transform: {
+                        xs: "translateY(-4px) scale(1.01)",
+                        md: "translateY(-8px) scale(1.02)",
+                      },
                       "& > *": {
                         transition: "all 0.3s ease",
                       },

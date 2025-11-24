@@ -25,8 +25,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
       sx={{
         width: "100%",
         maxWidth: { xs: "100%", sm: 320, md: 277 },
-        height: "auto",
-        minHeight: { xs: "auto", sm: 550, md: 597 },
+        height: { xs: "auto", sm: 650, md: 700 },
+        minHeight: { xs: 550, sm: 650, md: 700 },
         borderRadius: { xs: "20px", sm: "25px", md: "29px" },
         backgroundColor: "transparent",
         boxShadow: "none",
@@ -95,7 +95,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           fontSize: { xs: "1rem", sm: "1.125rem", md: "1.25rem" },
           maxWidth: { xs: "100%", sm: 180, md: 200 },
           mb: { xs: "8px", md: "12px" },
-          minHeight: { xs: "50px", sm: "55px", md: "60px" },
+          minHeight: { xs: "60px", sm: "70px", md: "80px" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -111,7 +111,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alignItems: "center",
           justifyContent: "center",
           gap: { xs: 1.5, md: 2 },
-          mb: { xs: "20px", sm: "25px", md: "30px" },
+          mb: { xs: "15px", sm: "20px", md: "25px" },
         }}
       >
         <Typography
@@ -139,8 +139,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <CustomButton
         variantType="gradient"
         sx={{
-          width: { xs: "100%", sm: 280, md: 185 },
-          height: { xs: 56, sm: 64, md: 54 },
+          width: { xs: "100%", sm: "100%", md: 185 },
+          height: { xs: 50, sm: 56, md: 54 },
+          maxWidth: 280,
           fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.0625rem" },
         }}
       >

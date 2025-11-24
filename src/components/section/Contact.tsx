@@ -6,6 +6,7 @@ import PhoneIcon from "@/assets/icons/phone-call-icon.svg?react";
 import promoImageGreen from "@/assets/images/photo-3green.svg";
 import promoImageRight from "@/assets/images/photo-1.2.svg";
 import { StarBadge } from "@components/ui/StarBadge";
+import { GlowCircle } from "@/components/ui/GlowCircle";
 
 const Contact: React.FC = memo(() => {
   return (
@@ -67,7 +68,21 @@ const Contact: React.FC = memo(() => {
                 Contacts
               </Box>
             </Typography>
-
+            <Box
+              sx={{
+                display: { xs: "none", sm: "none", md: "block" },
+                position: "relative",
+                top: { xs: -40, sm: -60, md: 50 },
+                left: { xs: -40, sm: -60, md: 80 },
+                zIndex: 0,
+              }}
+            >
+              <GlowCircle
+                size={120}
+                blur={140}
+                gradient="linear-gradient(245deg, rgba(35,114,73,0.55) 0%, rgba(53,198,107,0.73) 51.85%)"
+              />
+            </Box>
             <Typography
               variant="body1"
               sx={{
@@ -80,6 +95,7 @@ const Contact: React.FC = memo(() => {
               Have time to buy the most harmonious drinks in the new Starbucks
               coffee and don't forget about the discount!
             </Typography>
+
             <Box
               sx={{
                 display: "flex",
@@ -194,6 +210,21 @@ const Contact: React.FC = memo(() => {
                 }}
                 className="whitespace-pre-line hover:rotate-[-25deg] transition-transform duration-500"
               />
+              <Box
+                sx={{
+                  display: { xs: "none", sm: "none", md: "block" },
+                  position: "relative",
+                  top: { xs: -40, sm: -60, md: 0 },
+                  left: { xs: -40, sm: -60, md: 90 },
+                  zIndex: 0,
+                }}
+              >
+                <GlowCircle
+                  size={120}
+                  blur={140}
+                  gradient="linear-gradient(245deg, rgba(35,114,73,0.55) 0%, rgba(53,198,107,0.73) 51.85%)"
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
