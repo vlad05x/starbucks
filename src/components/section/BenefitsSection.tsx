@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Box, Typography, Card } from "@mui/material";
+import { Section } from "@components/ui/Section";
 import { StarBadge } from "../ui/StarBadge";
 import HeartVector from "@/assets/images/HeartVector.svg";
 import MoneyVector from "@/assets/images/MoneyVector.svg";
@@ -84,9 +85,16 @@ FeatureItem.displayName = "FeatureItem";
 
 export const BenefitsSection: React.FC = memo(() => {
   return (
-    <Box
-      component="section"
-      className="relative flex justify-center items-center py-12 sm:py-16 md:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 z-10 overflow-hidden"
+    <Section
+      className="py-12 sm:py-16 md:py-20 lg:py-28"
+      sx={{
+        position: "relative",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 10,
+      }}
+      containerProps={{ sx: { position: "relative" } }}
     >
       <Box
         className="absolute z-20"
@@ -132,7 +140,7 @@ export const BenefitsSection: React.FC = memo(() => {
           background:
             "linear-gradient(230deg, #fff 3.94%, #e5e5e5 64.08%, #fbfbfb 88.62%)",
           width: { xs: "100%", sm: "95%", md: "90%", lg: "1029px" },
-          height: { xs: "auto", md: "auto", lg: "372px" },
+          height: { xs: "auto", lg: "372px" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -151,7 +159,7 @@ export const BenefitsSection: React.FC = memo(() => {
           ))}
         </Box>
       </Card>
-    </Box>
+    </Section>
   );
 });
 

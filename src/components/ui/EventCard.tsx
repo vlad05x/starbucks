@@ -1,10 +1,10 @@
-import React from "react";
+import { memo, useCallback } from "react";
 import { Card, CardMedia, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import CustomButton from "./Button";
 
-type EventCardProps = {
+export interface EventCardProps {
   title: string;
   image: string;
   buttonText?: string;
@@ -12,30 +12,38 @@ type EventCardProps = {
   width?: number | string;
   height?: number | string;
   className?: string;
-};
+}
 
-export const EventCard: React.FC<EventCardProps> = ({
+const EventCardComponent = ({
   title,
   image,
   buttonText = "More",
   onButtonClick,
+  width = "100%",
   height = 260,
   className,
-}) => {
+}: EventCardProps) => {
+  const handleButtonClick = useCallback(() => {
+    onButtonClick?.();
+  }, [onButtonClick]);
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3 }}
-      style={{ height }}
-      className={clsx("relative rounded-2xl overflow-hidden w-full md:w-auto", className)}
+      style={{ height, width }}
+      className={clsx("relative rounded-2xl overflow-hidden", className)}
     >
-      <Card className="w-full h-full rounded-2xl overflow-hidden shadow-lg">
+      <Card
+        className="w-full h-full rounded-2xl overflow-hidden shadow-lg"
+        sx={{ height: "100%", width: "100%" }}
+      >
         <CardMedia
           component="img"
           image={image}
           alt={title}
-          sx={{ width: { xs: "100%", sm: "100%", md: "100%" }, height: { xs: "100%", sm: "100%", md: "100%" } }}
-          className="w-full h-full object-cover brightness-90"
+          sx={{ width: "100%", height: "100%" }}
+          className="object-cover brightness-90"
         />
 
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-between p-4 sm:p-6">
@@ -53,7 +61,7 @@ export const EventCard: React.FC<EventCardProps> = ({
               width: { xs: "140px", sm: "160px", md: "167px" },
               height: { xs: "56px", sm: "64px", md: "74px" },
             }}
-            onClick={onButtonClick}
+            onClick={handleButtonClick}
           >
             {buttonText}
           </CustomButton>
@@ -62,3 +70,7 @@ export const EventCard: React.FC<EventCardProps> = ({
     </motion.div>
   );
 };
+
+export const EventCard = memo(EventCardComponent);
+
+EventCard.displayName = "EventCard";

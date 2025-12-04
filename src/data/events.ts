@@ -4,6 +4,14 @@ import ImgEvent3 from "@/assets/images/events/img-3.svg";
 import ImgEvent4 from "@/assets/images/events/img-4.svg";
 import ImgEvent5 from "@/assets/images/events/img-5.svg";
 
+export interface EventItem {
+  id: number;
+  title: string;
+  image: string;
+  width: number;
+  height: number;
+}
+
 export const events = [
   {
     id: 1,
@@ -40,4 +48,4 @@ export const events = [
     width: 401,
     height: 260,
   },
-];
+] as const satisfies ReadonlyArray<EventItem>;

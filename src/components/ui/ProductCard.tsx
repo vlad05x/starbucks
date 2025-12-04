@@ -1,40 +1,41 @@
-import React from "react";
+import { memo } from "react";
 import { Box, Typography, Card } from "@mui/material";
 import CustomButton from "./Button";
+import type { Product } from "@/data/products";
 
-interface ProductCardProps {
-  image: string;
-  title: string;
-  subtitle: string;
-  price: string;
-  volume: string;
-}
+export type ProductCardProps = Product;
 
-const ProductCard: React.FC<ProductCardProps> = ({
+const ProductCardComponent = ({
   image,
   title,
   subtitle,
   price,
   volume,
-}) => {
+}: ProductCardProps) => {
   return (
     <Card
       elevation={0}
       component="div"
-      className="flex flex-col justify-between items-center text-center bg-transparent border border-transparent hover:border-[#2ecc71] transition-all duration-300"
       sx={{
         width: "100%",
         maxWidth: { xs: "100%", sm: 320, md: 277 },
-        height: { xs: "auto", sm: 650, md: 700 },
         minHeight: { xs: 550, sm: 650, md: 700 },
         borderRadius: { xs: "20px", sm: "25px", md: "29px" },
         backgroundColor: "transparent",
-        boxShadow: "none",
         borderWidth: 2,
+        borderStyle: "solid",
         borderColor: "#DADADA",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+        textAlign: "center",
         p: { xs: 3, sm: 4, md: 6 },
+        transition: "border-color 0.3s ease, transform 0.3s ease",
+        "&:hover": {
+          borderColor: "#2ecc71",
+          transform: { xs: "translateY(-4px)", md: "translateY(-8px)" },
+        },
       }}
     >
       <Box
@@ -55,24 +56,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
             height: { xs: 120, sm: 150, md: 180 },
             borderRadius: "50%",
             background: "linear-gradient(245deg, #237249 0%, #35c66b 100%)",
-            boxShadow: { xs: "0 3px 30px 0 rgba(0, 0, 0, 0.3)", md: "0 5px 52px 0 rgba(0, 0, 0, 0.39)" },
-            zIndex: 1,
+            boxShadow: {
+              xs: "0 3px 30px 0 rgba(0, 0, 0, 0.3)",
+              md: "0 5px 52px 0 rgba(0, 0, 0, 0.39)",
+            },
           }}
         />
 
-        <img
+        <Box
+          component="img"
           src={image}
           alt={title}
-          style={{
+          loading="lazy"
+          sx={{
             width: "100%",
             height: "100%",
             objectFit: "contain",
             transform: "rotate(-6deg)",
             filter: "drop-shadow(0 8px 15px rgba(0,0,0,0.4))",
             position: "relative",
-            zIndex: 2,
+            zIndex: 1,
           }}
-          className="w-full h-full object-contain"
         />
       </Box>
 
@@ -99,7 +103,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          textAlign: "center",
         }}
       >
         {subtitle}
@@ -150,5 +153,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
     </Card>
   );
 };
+
+const ProductCard = memo(ProductCardComponent);
+
+ProductCard.displayName = "ProductCard";
 
 export default ProductCard;
