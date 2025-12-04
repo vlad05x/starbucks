@@ -47,6 +47,7 @@ const PromoSection: React.FC = memo(() => {
             component="img"
             src={promoImageGreen}
             alt="Promo Green"
+            loading="lazy"
             sx={{
               width: "100%",
               maxWidth: { xs: "80%", md: 465 },
@@ -60,6 +61,7 @@ const PromoSection: React.FC = memo(() => {
             component="img"
             src={promoImageLeft}
             alt="Promo Left"
+            loading="lazy"
             sx={{
               position: "absolute",
               top: { xs: -50, md: -80 },
@@ -148,6 +150,7 @@ const PromoSection: React.FC = memo(() => {
               component="img"
               src={promoImage}
               alt="Promo"
+              loading="lazy"
               sx={{
                 width: "100%",
                 maxWidth: { xs: "80%", md: 447 },

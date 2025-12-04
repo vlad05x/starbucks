@@ -123,6 +123,7 @@ const Contact: React.FC = memo(() => {
             component="img"
             src={promoImageGreen}
             alt="Promo Green"
+            loading="lazy"
             sx={{
               width: "100%",
               maxWidth: { md: 354 },
@@ -137,6 +138,7 @@ const Contact: React.FC = memo(() => {
             component="img"
             src={promoImageRight}
             alt="Promo Right"
+            loading="lazy"
             sx={{
               position: "absolute",
               top: { md: -70, lg: -60 },

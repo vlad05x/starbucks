@@ -1,10 +1,11 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../ui/ProductCard";
 import { GlowCircle } from "../ui/GlowCircle";
 import { products } from "@/data/products";
 import { Section } from "@components/ui/Section";
 import { ScrollButton } from "@/components/ui/ScrollButton";
+import type { ScrollDirection } from "@/components/ui/ScrollButton";
 import {
   bodyTextSx,
   gradientHeadlineTextSx,
@@ -14,22 +15,32 @@ import {
 const ProductsSection: React.FC = memo(() => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = (direction: "left" | "right") => {
+  const handleScroll = useCallback((direction: ScrollDirection) => {
     const container = scrollContainerRef.current;
     if (!container) {
       return;
     }
 
-    const firstCard = container.querySelector("div");
-    const cardWidth = firstCard instanceof HTMLElement ? firstCard.clientWidth : 277;
-    const gap = window.innerWidth < 600 ? 16 : window.innerWidth < 960 ? 24 : 54;
+    const firstCard = container.firstElementChild as HTMLElement | null;
+    const cardWidth = firstCard?.clientWidth ?? 277;
+    const gap =
+      typeof window === "undefined"
+        ? 24
+        : window.innerWidth < 600
+        ? 16
+        : window.innerWidth < 960
+        ? 24
+        : 54;
     const scrollAmount = cardWidth + gap;
 
     container.scrollBy({
       left: direction === "right" ? scrollAmount : -scrollAmount,
       behavior: "smooth",
     });
-  };
+  }, []);
+
+  const scrollLeft = useCallback(() => handleScroll("left"), [handleScroll]);
+  const scrollRight = useCallback(() => handleScroll("right"), [handleScroll]);
 
   return (
     <Section className="py-8 sm:py-10 md:py-16 lg:py-20">
@@ -96,7 +107,7 @@ const ProductsSection: React.FC = memo(() => {
             zIndex: 10,
           }}
         >
-          <ScrollButton direction="left" onClick={() => handleScroll("left")} />
+          <ScrollButton direction="left" onClick={scrollLeft} />
         </Box>
 
         <Box
@@ -163,7 +174,7 @@ const ProductsSection: React.FC = memo(() => {
             zIndex: 10,
           }}
         >
-          <ScrollButton direction="right" onClick={() => handleScroll("right")} />
+          <ScrollButton direction="right" onClick={scrollRight} />
         </Box>
       </Box>
     </Section>

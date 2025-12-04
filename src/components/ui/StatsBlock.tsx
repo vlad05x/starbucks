@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { Box, Typography } from "@mui/material";
 
 interface StatItem {
@@ -12,10 +12,16 @@ const stats: StatItem[] = [
   { value: "28+", label: "Awards Winning" },
 ] as const;
 
-const StatItem: React.FC<{ stat: StatItem }> = memo(({ stat }) => {
-  const numberPart = stat.value.slice(0, -1);
-  const plusPart = stat.value.slice(-1);
-  const labelWords = stat.label.split(" ");
+const StatItemComponent: React.FC<{ stat: StatItem }> = ({ stat }) => {
+  const { numberPart, plusPart, labelWords } = useMemo(() => {
+    const numberPartValue = stat.value.slice(0, -1);
+    const plusPartValue = stat.value.slice(-1);
+    return {
+      numberPart: numberPartValue,
+      plusPart: plusPartValue,
+      labelWords: stat.label.split(" "),
+    };
+  }, [stat.label, stat.value]);
 
   return (
     <Box
@@ -77,7 +83,9 @@ const StatItem: React.FC<{ stat: StatItem }> = memo(({ stat }) => {
       </Typography>
     </Box>
   );
-});
+};
+
+const StatItem = memo(StatItemComponent);
 
 StatItem.displayName = "StatItem";
 

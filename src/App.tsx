@@ -1,12 +1,23 @@
-import { memo } from "react";
+import { memo, lazy, Suspense } from "react";
 import { Header } from "./components/layout/Header";
 import HeroSection from "./components/section/HeroSection";
-import { BenefitsSection } from "./components/section/BenefitsSection";
-import PromoSection from "./components/section/PromoSection";
-import ProductsSection from "./components/section/ProductsSection";
-import EventsSection from "./components/section/EventsSection";
-import Contact from "./components/section/Contact";
-import { Footer } from "./components/layout/Footer";
+
+const BenefitsSection = lazy(() =>
+  import("./components/section/BenefitsSection").then((module) => ({
+    default: module.BenefitsSection,
+  }))
+);
+const PromoSection = lazy(() => import("./components/section/PromoSection"));
+const ProductsSection = lazy(() =>
+  import("./components/section/ProductsSection")
+);
+const EventsSection = lazy(() => import("./components/section/EventsSection"));
+const Contact = lazy(() => import("./components/section/Contact"));
+const Footer = lazy(() =>
+  import("./components/layout/Footer").then((module) => ({
+    default: module.Footer,
+  }))
+);
 
 const App = memo(() => {
   return (
@@ -14,13 +25,19 @@ const App = memo(() => {
       <Header />
       <main>
         <HeroSection />
-        <BenefitsSection />
-        <PromoSection />
-        <ProductsSection />
-        <EventsSection />
-        <Contact />
+        <Suspense fallback={null}>
+          <>
+            <BenefitsSection />
+            <PromoSection />
+            <ProductsSection />
+            <EventsSection />
+            <Contact />
+          </>
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 });

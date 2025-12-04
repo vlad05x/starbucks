@@ -1,6 +1,5 @@
 import { memo, useCallback } from "react";
-import { Card, CardMedia, Typography } from "@mui/material";
-import { motion } from "framer-motion";
+import { Box, Card, CardMedia, Typography } from "@mui/material";
 import clsx from "clsx";
 import CustomButton from "./Button";
 
@@ -28,22 +27,26 @@ const EventCardComponent = ({
   }, [onButtonClick]);
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-      style={{ height, width }}
+    <Box
+      component="article"
       className={clsx("relative rounded-2xl overflow-hidden", className)}
+      sx={{
+        height,
+        width,
+        transition: "transform 0.3s ease",
+        willChange: "transform",
+        "&:hover": { transform: "scale(1.02)" },
+        "&:focus-within": { transform: "scale(1.02)" },
+      }}
     >
-      <Card
-        className="w-full h-full rounded-2xl overflow-hidden shadow-lg"
-        sx={{ height: "100%", width: "100%" }}
-      >
+      <Card className="w-full h-full rounded-2xl overflow-hidden shadow-lg" sx={{ height: "100%", width: "100%" }}>
         <CardMedia
           component="img"
           image={image}
           alt={title}
-          sx={{ width: "100%", height: "100%" }}
+          loading="lazy"
           className="object-cover brightness-90"
+          sx={{ width: "100%", height: "100%" }}
         />
 
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-between p-4 sm:p-6">
@@ -67,7 +70,7 @@ const EventCardComponent = ({
           </CustomButton>
         </div>
       </Card>
-    </motion.div>
+    </Box>
   );
 };
 
