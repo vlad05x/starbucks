@@ -1,7 +1,9 @@
 import { memo } from "react";
+import { motion } from "framer-motion";
 import { Box, Typography, Card } from "@mui/material";
 import CustomButton from "./Button";
 import type { Product } from "@/data/products";
+import { cardEntrance } from "@/utils/animations";
 
 export type ProductCardProps = Product;
 
@@ -13,7 +15,13 @@ const ProductCardComponent = ({
   volume,
 }: ProductCardProps) => {
   return (
-    <Card
+    <motion.div
+      variants={cardEntrance}
+      whileHover="hover"
+      initial="hidden"
+      animate="visible"
+    >
+      <Card
       elevation={0}
       component="div"
       sx={{
@@ -151,6 +159,7 @@ const ProductCardComponent = ({
         Select a coffee
       </CustomButton>
     </Card>
+    </motion.div>
   );
 };
 

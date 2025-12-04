@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { motion } from "framer-motion";
 import Button from "@mui/material/Button";
 import type { ButtonProps } from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -62,7 +63,12 @@ const CustomButton = memo(
             };
 
       return (
-        <Button
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <Button
           ref={ref}
           startIcon={
             loading ? <CircularProgress size={20} color="inherit" /> : startIcon
@@ -85,6 +91,7 @@ const CustomButton = memo(
         >
           {children}
         </Button>
+        </motion.div>
       );
     }
   )

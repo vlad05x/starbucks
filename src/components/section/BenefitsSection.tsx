@@ -1,10 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
+import { motion } from "framer-motion";
 import { Box, Typography, Card } from "@mui/material";
 import { Section } from "@components/ui/Section";
 import { StarBadge } from "../ui/StarBadge";
 import HeartVector from "@/assets/images/HeartVector.svg";
 import MoneyVector from "@/assets/images/MoneyVector.svg";
 import RocketVector from "@/assets/images/RocketVector.svg";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { slideUp, fadeIn } from "@/utils/animations";
 
 const features = [
   {
@@ -27,8 +30,14 @@ const features = [
   },
 ] as const;
 
-const FeatureItem: React.FC<{ feature: (typeof features)[number] }> = memo(
-  ({ feature }) => (
+const FeatureItem: React.FC<{ feature: (typeof features)[number]; index: number }> = memo(
+  ({ feature, index }) => (
+    <motion.div
+      variants={slideUp}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+    >
     <Box className="flex flex-col items-center text-center">
       <Box className="relative w-24 sm:w-28 md:w-32 lg:w-36 h-24 sm:h-28 md:h-32 lg:h-36 flex items-center justify-center">
         <Box
@@ -78,13 +87,24 @@ const FeatureItem: React.FC<{ feature: (typeof features)[number] }> = memo(
         {feature.description}
       </Typography>
     </Box>
+    </motion.div>
   )
 );
 
 FeatureItem.displayName = "FeatureItem";
 
 export const BenefitsSection: React.FC = memo(() => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { shouldAnimate } = useIntersectionObserver(sectionRef, { threshold: 0.1 });
+
   return (
+    <motion.div
+      ref={sectionRef}
+      variants={fadeIn}
+      initial="hidden"
+      animate={shouldAnimate ? "visible" : "hidden"}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
     <Section
       className="py-12 sm:py-16 md:py-20 lg:py-28"
       sx={{
@@ -154,12 +174,13 @@ export const BenefitsSection: React.FC = memo(() => {
             gap: { xs: 4, sm: 6, md: 8, lg: 10 },
           }}
         >
-          {features.map((feature) => (
-            <FeatureItem key={feature.title} feature={feature} />
+          {features.map((feature, index) => (
+            <FeatureItem key={feature.title} feature={feature} index={index} />
           ))}
         </Box>
       </Card>
     </Section>
+    </motion.div>
   );
 });
 

@@ -1,7 +1,9 @@
 import { memo, useCallback } from "react";
+import { motion } from "framer-motion";
 import { Box, Card, CardMedia, Typography } from "@mui/material";
 import clsx from "clsx";
 import CustomButton from "./Button";
+import { cardEntrance } from "@/utils/animations";
 
 export interface EventCardProps {
   title: string;
@@ -27,7 +29,14 @@ const EventCardComponent = ({
   }, [onButtonClick]);
 
   return (
-    <Box
+    <motion.div
+      variants={cardEntrance}
+      initial="hidden"
+      animate="visible"
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
+      <Box
       component="article"
       className={clsx("relative rounded-2xl overflow-hidden", className)}
       sx={{
@@ -35,8 +44,6 @@ const EventCardComponent = ({
         width,
         transition: "transform 0.3s ease",
         willChange: "transform",
-        "&:hover": { transform: "scale(1.02)" },
-        "&:focus-within": { transform: "scale(1.02)" },
       }}
     >
       <Card className="w-full h-full rounded-2xl overflow-hidden shadow-lg" sx={{ height: "100%", width: "100%" }}>
@@ -70,7 +77,8 @@ const EventCardComponent = ({
           </CustomButton>
         </div>
       </Card>
-    </Box>
+      </Box>
+    </motion.div>
   );
 };
 

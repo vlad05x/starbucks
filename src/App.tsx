@@ -1,6 +1,8 @@
 import { memo, lazy, Suspense } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "./components/layout/Header";
 import HeroSection from "./components/section/HeroSection";
+import { staggerContainer, pageTransition } from "./utils/animations";
 
 const BenefitsSection = lazy(() =>
   import("./components/section/BenefitsSection").then((module) => ({
@@ -23,18 +25,26 @@ const App = memo(() => {
   return (
     <>
       <Header />
-      <main>
-        <HeroSection />
-        <Suspense fallback={null}>
-          <>
-            <BenefitsSection />
-            <PromoSection />
-            <ProductsSection />
-            <EventsSection />
-            <Contact />
-          </>
-        </Suspense>
-      </main>
+      <AnimatePresence mode="wait">
+        <motion.main
+          key="main-content"
+          variants={pageTransition}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          <HeroSection />
+          <Suspense fallback={null}>
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible">
+              <BenefitsSection />
+              <PromoSection />
+              <ProductsSection />
+              <EventsSection />
+              <Contact />
+            </motion.div>
+          </Suspense>
+        </motion.main>
+      </AnimatePresence>
       <Suspense fallback={null}>
         <Footer />
       </Suspense>

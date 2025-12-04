@@ -1,4 +1,5 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
+import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 import { Section } from "@components/ui/Section";
 import {
@@ -8,13 +9,24 @@ import {
 } from "@/constants/typography";
 import { EventCard } from "@/components/ui/EventCard";
 import { events } from "@/data/events";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { fadeIn } from "@/utils/animations";
 
 const EventsSection: React.FC = memo(() => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { shouldAnimate } = useIntersectionObserver(sectionRef, { threshold: 0.1 });
   const leadEvents = events.slice(0, 2);
   const secondaryEvents = events.slice(2);
 
   return (
-    <Section className="py-8 sm:py-10 md:py-16 lg:py-20">
+    <motion.div
+      ref={sectionRef}
+      variants={fadeIn}
+      initial="hidden"
+      animate={shouldAnimate ? "visible" : "hidden"}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <Section className="py-8 sm:py-10 md:py-16 lg:py-20">
       <Box
         sx={{
           display: "flex",
@@ -83,6 +95,7 @@ const EventsSection: React.FC = memo(() => {
         ))}
       </Box>
     </Section>
+    </motion.div>
   );
 });
 

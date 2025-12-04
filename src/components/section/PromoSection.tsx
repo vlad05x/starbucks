@@ -1,4 +1,5 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
+import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 import { GlowCircle } from "@/components/ui/GlowCircle";
 import CustomButton from "@/components/ui/Button";
@@ -13,9 +14,21 @@ import {
   gradientHeadlineTextSx,
   sectionHeadingSx,
 } from "@/constants/typography";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { fadeIn, slideUp } from "@/utils/animations";
 
 const PromoSection: React.FC = memo(() => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { shouldAnimate } = useIntersectionObserver(sectionRef, { threshold: 0.1 });
+
   return (
+    <motion.div
+      ref={sectionRef}
+      variants={fadeIn}
+      initial="hidden"
+      animate={shouldAnimate ? "visible" : "hidden"}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
     <Section
       className="py-8 sm:py-10 md:py-16 lg:py-20"
       sx={{
@@ -190,6 +203,7 @@ const PromoSection: React.FC = memo(() => {
         </Box>
       </Box>
     </Section>
+    </motion.div>
   );
 });
 

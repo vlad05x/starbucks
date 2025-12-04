@@ -1,5 +1,7 @@
 import React, { memo, useMemo } from "react";
+import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
+import { statsCount } from "@/utils/animations";
 
 interface StatItem {
   value: string;
@@ -12,7 +14,7 @@ const stats: StatItem[] = [
   { value: "28+", label: "Awards Winning" },
 ] as const;
 
-const StatItemComponent: React.FC<{ stat: StatItem }> = ({ stat }) => {
+const StatItemComponent: React.FC<{ stat: StatItem; index: number }> = ({ stat, index }) => {
   const { numberPart, plusPart, labelWords } = useMemo(() => {
     const numberPartValue = stat.value.slice(0, -1);
     const plusPartValue = stat.value.slice(-1);
@@ -24,6 +26,12 @@ const StatItemComponent: React.FC<{ stat: StatItem }> = ({ stat }) => {
   }, [stat.label, stat.value]);
 
   return (
+    <motion.div
+      variants={statsCount}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+    >
     <Box
       sx={{
         flex: { xs: "0 0 auto", sm: "1 1 0" },
@@ -82,6 +90,7 @@ const StatItemComponent: React.FC<{ stat: StatItem }> = ({ stat }) => {
         ))}
       </Typography>
     </Box>
+    </motion.div>
   );
 };
 
@@ -102,7 +111,7 @@ const StatsBlock: React.FC = memo(() => {
       }}
     >
       {stats.map((stat, index) => (
-        <StatItem key={index} stat={stat} />
+        <StatItem key={index} stat={stat} index={index} />
       ))}
     </Box>
   );

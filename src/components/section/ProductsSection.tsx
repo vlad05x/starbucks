@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useRef } from "react";
+import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../ui/ProductCard";
 import { GlowCircle } from "../ui/GlowCircle";
@@ -11,9 +12,13 @@ import {
   gradientHeadlineTextSx,
   sectionHeadingSx,
 } from "@/constants/typography";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { fadeIn } from "@/utils/animations";
 
 const ProductsSection: React.FC = memo(() => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { shouldAnimate } = useIntersectionObserver(sectionRef, { threshold: 0.1 });
 
   const handleScroll = useCallback((direction: ScrollDirection) => {
     const container = scrollContainerRef.current;
@@ -43,7 +48,14 @@ const ProductsSection: React.FC = memo(() => {
   const scrollRight = useCallback(() => handleScroll("right"), [handleScroll]);
 
   return (
-    <Section className="py-8 sm:py-10 md:py-16 lg:py-20">
+    <motion.div
+      ref={sectionRef}
+      variants={fadeIn}
+      initial="hidden"
+      animate={shouldAnimate ? "visible" : "hidden"}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <Section className="py-8 sm:py-10 md:py-16 lg:py-20">
       <Box
         sx={{
           display: "flex",
@@ -178,6 +190,7 @@ const ProductsSection: React.FC = memo(() => {
         </Box>
       </Box>
     </Section>
+    </motion.div>
   );
 });
 
