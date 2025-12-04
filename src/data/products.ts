@@ -2,6 +2,14 @@ import product1 from "@/assets/images/products/product-1.svg";
 import product2 from "@/assets/images/products/product-2.svg";
 import product3 from "@/assets/images/products/product-3.svg";
 
+export interface Product {
+  image: string;
+  title: string;
+  subtitle: string;
+  price: string;
+  volume: string;
+}
+
 export const products = [
   {
     image: product1,
@@ -52,4 +60,4 @@ export const products = [
     price: "6.85$",
     volume: "400 ml",
   },
-];
+] as const satisfies ReadonlyArray<Product>;
