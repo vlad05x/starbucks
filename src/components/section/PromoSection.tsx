@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Box, Typography, Container } from "@mui/material";
+import { motion } from "framer-motion";
 import theme from "@/theme";
 import { GlowCircle } from "../ui/GlowCircle";
 import CustomButton from "@/components/ui/Button";
@@ -8,12 +9,21 @@ import { StarBadge } from "@components/ui/StarBadge";
 import promoImage from "@/assets/images/photo-2.svg";
 import promoImageLeft from "@/assets/images/photo-1.svg";
 import promoImageGreen from "@/assets/images/photo-3green.svg";
+import { useScrollAnimation } from "@/animations/useScrollAnimation";
+import {
+  containerVariants,
+  itemVariants,
+} from "@/animations/motionConfig";
 
 const PromoSection: React.FC = memo(() => {
+  // Trigger animations when section enters viewport
+  const { ref, once } = useScrollAnimation();
+
   return (
     <section
       className="flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 xl:px-20 py-8 sm:py-10 md:py-16 lg:py-20"
       style={{ overflowX: "hidden", width: "100%", maxWidth: "100vw" }}
+      ref={ref}
     >
       <Container
         maxWidth={false}
@@ -25,6 +35,10 @@ const PromoSection: React.FC = memo(() => {
         }}
       >
         <Box
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate={once ? "visible" : "hidden"}
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
@@ -36,6 +50,8 @@ const PromoSection: React.FC = memo(() => {
         >
           {/* Left Image Block */}
           <Box
+            component={motion.div}
+            variants={itemVariants}
             sx={{
               position: "relative",
               width: { xs: "80%", md: "50%" },
@@ -104,6 +120,8 @@ const PromoSection: React.FC = memo(() => {
 
           {/* Right Content Block */}
           <Box
+            component={motion.div}
+            variants={itemVariants}
             className="md:w-1/2 flex flex-col w-full"
             sx={{
               gap: { xs: 6, sm: 8, md: 10, lg: "54px" },
@@ -205,20 +223,27 @@ const PromoSection: React.FC = memo(() => {
                   pointerEvents: "none",
                 }}
               >
-                <CustomButton
-                  startIcon={
-                    <PlayArrowIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
-                  }
-                  sx={{
-                    width: { xs: "auto", md: "325px" },
-                    height: { xs: 45, sm: 64, md: 75 },
-                    fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                    backdropFilter: "blur(10px)",
-                    pointerEvents: "auto",
-                  }}
+                <motion.div
+                  whileHover={{ scale: 1.1, y: -4 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  style={{ pointerEvents: "auto" }}
                 >
-                  Cooking Process
-                </CustomButton>
+                  <CustomButton
+                    startIcon={
+                      <PlayArrowIcon sx={{ fontSize: { xs: 20, md: 24 } }} />
+                    }
+                    sx={{
+                      width: { xs: "auto", md: "325px" },
+                      height: { xs: 45, sm: 64, md: 75 },
+                      fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
+                      backdropFilter: "blur(10px)",
+                      pointerEvents: "auto",
+                    }}
+                  >
+                    Cooking Process
+                  </CustomButton>
+                </motion.div>
               </Box>
             </Box>
           </Box>

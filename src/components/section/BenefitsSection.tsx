@@ -1,9 +1,15 @@
 import React, { memo } from "react";
 import { Box, Typography, Card } from "@mui/material";
+import { motion } from "framer-motion";
 import { StarBadge } from "../ui/StarBadge";
 import HeartVector from "@/assets/images/HeartVector.svg";
 import MoneyVector from "@/assets/images/MoneyVector.svg";
 import RocketVector from "@/assets/images/RocketVector.svg";
+import { useScrollAnimation } from "@/animations/useScrollAnimation";
+import {
+  containerVariants,
+  itemVariants,
+} from "@/animations/motionConfig";
 
 const features = [
   {
@@ -28,8 +34,16 @@ const features = [
 
 const FeatureItem: React.FC<{ feature: (typeof features)[number] }> = memo(
   ({ feature }) => (
-    <Box className="flex flex-col items-center text-center">
-      <Box className="relative w-24 sm:w-28 md:w-32 lg:w-36 h-24 sm:h-28 md:h-32 lg:h-36 flex items-center justify-center">
+    <Box
+      component={motion.div}
+      variants={itemVariants}
+      className="flex flex-col items-center text-center"
+    >
+      <motion.div
+        className="relative w-24 sm:w-28 md:w-32 lg:w-36 h-24 sm:h-28 md:h-32 lg:h-36 flex items-center justify-center"
+        whileHover={{ scale: 1.1, y: -8 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
         <Box
           className="absolute w-20 sm:w-24 md:w-28 lg:w-32 h-20 sm:h-24 md:h-28 lg:h-32 rounded-full"
           sx={{
@@ -46,7 +60,7 @@ const FeatureItem: React.FC<{ feature: (typeof features)[number] }> = memo(
             maxHeight: { xs: "100px", sm: "130px", md: "150px", lg: "183px" },
           }}
         />
-      </Box>
+      </motion.div>
 
       <Typography
         variant="h5"
@@ -83,10 +97,14 @@ const FeatureItem: React.FC<{ feature: (typeof features)[number] }> = memo(
 FeatureItem.displayName = "FeatureItem";
 
 export const BenefitsSection: React.FC = memo(() => {
+  // Trigger animations when section enters viewport
+  const { ref, once } = useScrollAnimation();
+
   return (
     <Box
       component="section"
       className="relative flex justify-center items-center py-12 sm:py-16 md:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 z-10 overflow-hidden"
+      ref={ref}
     >
       <Box
         className="absolute z-20"
@@ -126,6 +144,10 @@ export const BenefitsSection: React.FC = memo(() => {
       </Box>
 
       <Card
+        component={motion.div}
+        variants={itemVariants}
+        animate={once ? "visible" : "hidden"}
+        initial="hidden"
         className="relative z-10 w-full max-w-5xl rounded-2xl sm:rounded-3xl shadow-2xl"
         sx={{
           borderRadius: { xs: "24px", sm: "32px", md: "40px", lg: "46px" },
@@ -141,6 +163,10 @@ export const BenefitsSection: React.FC = memo(() => {
         }}
       >
         <Box
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate={once ? "visible" : "hidden"}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 justify-items-center w-full"
           sx={{
             gap: { xs: 4, sm: 6, md: 8, lg: 10 },

@@ -1,17 +1,27 @@
 import React, { memo } from "react";
 import theme from "@/theme";
 import { Box, Typography, Container } from "@mui/material";
+import { motion } from "framer-motion";
 import CustomButton from "@components/ui/Button";
 import StatsBlock from "@components/ui/StatsBlock";
 import CupCoffee from "@/assets/images/CupCoffeMain.svg";
 import { GlowCircle } from "@components/ui/GlowCircle";
 import { StarBadge } from "@components/ui/StarBadge";
+import { useScrollAnimation } from "@/animations/useScrollAnimation";
+import {
+  containerVariants,
+  itemVariants,
+} from "@/animations/motionConfig";
 
 const HeroSection: React.FC = memo(() => {
+  // Trigger animations when hero enters viewport
+  const { ref, once } = useScrollAnimation();
+
   return (
     <section 
       className="flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-20 py-8 sm:py-10 md:py-16 lg:py-20 min-h-[90vh] md:min-h-auto"
       style={{ overflowX: "hidden", width: "100%", maxWidth: "100vw" }}
+      ref={ref}
     >
       <Container
         maxWidth={false}
@@ -19,17 +29,22 @@ const HeroSection: React.FC = memo(() => {
           maxWidth: 1290, 
           mx: "auto", 
           px: { xs: 2, sm: 3 },
-          // overflowX: "hidden",
           width: "100%",
         }}
       >
         <Box
+          component={motion.div}
           className="flex flex-col md:flex-row items-center w-full"
+          variants={containerVariants}
+          initial="hidden"
+          animate={once ? "visible" : "hidden"}
           sx={{
             gap: { xs: 8, sm: 12, md: 16, lg: 20, xl: "155px" },
           }}
         >
           <Box
+            component={motion.div}
+            variants={itemVariants}
             className="md:w-1/2 flex justify-center order-1 md:order-2 relative w-full"
             sx={{
               minHeight: { xs: "300px", sm: "400px", md: "auto" },
@@ -142,6 +157,8 @@ const HeroSection: React.FC = memo(() => {
           </Box>
 
           <Box
+            component={motion.div}
+            variants={itemVariants}
             className="md:w-1/2 flex flex-col order-2 md:order-1 w-full"
             sx={{
               gap: { xs: 6, sm: 8, md: 10, lg: "54px" },
@@ -216,34 +233,48 @@ const HeroSection: React.FC = memo(() => {
             </Typography>
 
             <Box
+              component={motion.div}
+              variants={itemVariants}
               className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full"
               sx={{
                 width: { xs: "100%", sm: "auto" },
               }}
             >
-              <CustomButton
-                variantType="gradient"
-                sx={{
-                  width: { xs: "100%", sm: 280, md: 333 },
-                  height: { xs: 56, sm: 64, md: 74 },
-                  fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                }}
+              <motion.div
+                whileHover={{ scale: 1.05, y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                Select a coffee
-              </CustomButton>
-              <Box className="relative">
                 <CustomButton
-                  variantType="dark"
+                  variantType="gradient"
                   sx={{
-                    width: { xs: "100%", sm: 140, md: 167 },
+                    width: { xs: "100%", sm: 280, md: 333 },
                     height: { xs: 56, sm: 64, md: 74 },
                     fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                    zIndex: 10,
-                    position: "relative",
                   }}
                 >
-                  More
+                  Select a coffee
                 </CustomButton>
+              </motion.div>
+              <Box className="relative">
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <CustomButton
+                    variantType="dark"
+                    sx={{
+                      width: { xs: "100%", sm: 140, md: 167 },
+                      height: { xs: 56, sm: 64, md: 74 },
+                      fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
+                      zIndex: 10,
+                      position: "relative",
+                    }}
+                  >
+                    More
+                  </CustomButton>
+                </motion.div>
 
                 <Box
                   sx={{
@@ -267,7 +298,11 @@ const HeroSection: React.FC = memo(() => {
               </Box>
             </Box>
 
-            <Box sx={{ width: "100%", mt: { xs: 2, md: 0 } }}>
+            <Box
+              component={motion.div}
+              variants={itemVariants}
+              sx={{ width: "100%", mt: { xs: 2, md: 0 } }}
+            >
               <StatsBlock />
             </Box>
           </Box>
