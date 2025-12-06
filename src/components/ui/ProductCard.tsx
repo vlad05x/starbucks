@@ -1,6 +1,9 @@
 import React from "react";
 import { Box, Typography, Card } from "@mui/material";
+import { motion } from "framer-motion";
 import CustomButton from "./Button";
+import { useScrollAnimation } from "@/animations/useScrollAnimation";
+import { fadeInScaleVariants } from "@/animations/motionConfig";
 
 interface ProductCardProps {
   image: string;
@@ -17,26 +20,36 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   volume,
 }) => {
+  // Trigger scale animation when card enters viewport
+  const { ref, once } = useScrollAnimation();
+
   return (
-    <Card
-      elevation={0}
-      component="div"
-      className="flex flex-col justify-between items-center text-center bg-transparent border border-transparent hover:border-[#2ecc71] transition-all duration-300"
-      sx={{
-        width: "100%",
-        maxWidth: { xs: "100%", sm: 320, md: 277 },
-        height: { xs: "auto", sm: 650, md: 700 },
-        minHeight: { xs: 550, sm: 650, md: 700 },
-        borderRadius: { xs: "20px", sm: "25px", md: "29px" },
-        backgroundColor: "transparent",
-        boxShadow: "none",
-        borderWidth: 2,
-        borderColor: "#DADADA",
-        display: "flex",
-        flexDirection: "column",
-        p: { xs: 3, sm: 4, md: 6 },
-      }}
+    <motion.div
+      ref={ref}
+      variants={fadeInScaleVariants}
+      initial="hidden"
+      animate={once ? "visible" : "hidden"}
+      style={{ width: "100%" }}
     >
+      <Card
+        elevation={0}
+        component="div"
+        className="flex flex-col justify-between items-center text-center bg-transparent border border-transparent hover:border-[#2ecc71] transition-all duration-300"
+        sx={{
+          width: "100%",
+          maxWidth: { xs: "100%", sm: 320, md: 277 },
+          height: { xs: "auto", sm: 650, md: 700 },
+          minHeight: { xs: 550, sm: 650, md: 700 },
+          borderRadius: { xs: "20px", sm: "25px", md: "29px" },
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          borderWidth: 2,
+          borderColor: "#DADADA",
+          display: "flex",
+          flexDirection: "column",
+          p: { xs: 3, sm: 4, md: 6 },
+        }}
+      >
       <Box
         sx={{
           position: "relative",
@@ -148,6 +161,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         Select a coffee
       </CustomButton>
     </Card>
+    </motion.div>
   );
 };
 

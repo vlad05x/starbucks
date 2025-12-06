@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Box, Typography, Container } from "@mui/material";
+import { motion } from "framer-motion";
 import theme from "@/theme";
 import InstagramIcon from "@/assets/icons/instagram-icon.svg?react";
 import PhoneIcon from "@/assets/icons/phone-call-icon.svg?react";
@@ -7,10 +8,18 @@ import promoImageGreen from "@/assets/images/photo-3green.svg";
 import promoImageRight from "@/assets/images/photo-1.2.svg";
 import { StarBadge } from "@components/ui/StarBadge";
 import { GlowCircle } from "@/components/ui/GlowCircle";
+import { useScrollAnimation } from "@/animations/useScrollAnimation";
+import {
+  containerVariants,
+  itemVariants,
+} from "@/animations/motionConfig";
 
 const Contact: React.FC = memo(() => {
+  // Trigger animations when section enters viewport
+  const { ref, once } = useScrollAnimation();
+
   return (
-    <section className="flex flex-col items-start justify-center px-4 sm:px-6 lg:px-8 xl:px-20 py-8 sm:py-10 md:py-16 lg:py-[148px]">
+    <section className="flex flex-col items-start justify-center px-4 sm:px-6 lg:px-8 xl:px-20 py-8 sm:py-10 md:py-16 lg:py-[148px]" ref={ref}>
       <Container
         maxWidth={false}
         sx={{
@@ -21,6 +30,10 @@ const Contact: React.FC = memo(() => {
         }}
       >
         <Box
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate={once ? "visible" : "hidden"}
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
@@ -32,6 +45,8 @@ const Contact: React.FC = memo(() => {
         >
           {/* Left Content Block */}
           <Box
+            component={motion.div}
+            variants={itemVariants}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -148,6 +163,8 @@ const Contact: React.FC = memo(() => {
           </Box>
           {/* Right Content Block */}
           <Box
+            component={motion.div}
+            variants={itemVariants}
             sx={{
               position: "relative",
               width: { xs: "100%", md: "50%" },
