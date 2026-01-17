@@ -153,7 +153,7 @@ export const Header: React.FC = memo(() => {
           },
         }}
         ModalProps={{
-          keepMounted: true, // Better mobile performance
+          keepMounted: true,
         }}
       >
         <Box

@@ -18,16 +18,16 @@ const HeroSection: React.FC = memo(() => {
   const { ref, once } = useScrollAnimation();
 
   return (
-    <section 
+    <section
       className="flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-20 py-8 sm:py-10 md:py-16 lg:py-20 min-h-[90vh] md:min-h-auto"
       style={{ overflowX: "hidden", width: "100%", maxWidth: "100vw" }}
       ref={ref}
     >
       <Container
         maxWidth={false}
-        sx={{ 
-          maxWidth: 1290, 
-          mx: "auto", 
+        sx={{
+          maxWidth: 1290,
+          mx: "auto",
           px: { xs: 2, sm: 3 },
           width: "100%",
         }}
@@ -118,11 +118,11 @@ const HeroSection: React.FC = memo(() => {
               sx={{
                 position: "absolute",
                 top: { xs: "-10px", sm: "20px", md: "40px", lg: "60px" },
-                right: { 
-                  xs: "clamp(0px, 5vw, 90px)", 
-                  sm: "clamp(0px, 10vw, 230px)", 
-                  md: "100px", 
-                  lg: "150px" 
+                right: {
+                  xs: "clamp(0px, 5vw, 90px)",
+                  sm: "clamp(0px, 10vw, 230px)",
+                  md: "100px",
+                  lg: "150px"
                 },
                 zIndex: 20,
                 transform: {
